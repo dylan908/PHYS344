@@ -1,1 +1,37 @@
+##PROGRAM 1, PLOTTER -  DYLAN STUBBS -  9/6/18
+from __future__ import division
+import numpy as np
+import matplotlib.pyplot as plt
+D = 10                              ##Number of dots that will be scattered
+x = np.random.rand(D)               ## Populate list of random x values [0,1)
+y = np.random.rand(D)               ## Populate corresponding random y values to match
+plt.scatter(x, y)                   ## Populates the graphs with the horizontal and vertical points
+plt.xlabel('Random X')              ## Display the x axis label
+plt.ylabel('Random Y')              ## Display the y axis label
+plt.show()                          ## Show me the graph
+
+##PROGRAM 2, SG DEVICE -  DYLAN STUBBS -    9/6/18
+from pylab import *
+from numpy import *
+import random
+##Constants
+P = 10**6                           ##Number of particles
+i = 0                               ##Beginning step
+difflist = []                       ##List of difference in spins
+totalspin = []                      ##List of the spins which will then be seperated
+i = 0                               ##Initialize the counter for loop
+step = 1000                         ##Step required for loop
+while i < P:
+    spin = random.randint(0,1)              ##Gives a random spin
+    totalspin.append(spin)                  ##Appends the random int to the spin list
+    up = totalspin.count(0)                 ##Counts number up particles
+    down = totalspin.count(1)               ##Counts number down particles
+    i = i + step                            ##Steps through program
+    diff = abs(up-down)                     ##Difference in spin values
+    difflist.append(diff)                   ##Append difference to list
+numparts = linspace(0,10**6,step)           ##Create x axis of number of particles for graphing
+plot(numparts, difflist)                    ##Plots results
+xlabel('Number of Particles')
+ylabel('Difference in Spin Values')
+
 
