@@ -1,0 +1,104 @@
+##DYLAN STUBBS 9/13/18
+
+##IMPORT NECESSARY MODULES
+from __future__ import division
+from  pylab import *
+from math import *
+import matplotlib.pyplot as plt
+import random
+from numpy import *
+from scipy import *
+
+
+d=1                 ##UNIT STEPS
+N=20                ##STEPS TAKEN PER ITERATION
+direction = [0]*N   ##VECTOR FOR THE WALK
+
+
+def Walk(n):        ##MULTI RUNS OF PROG.
+    j = 0 
+    Pos_list = []   ##BLANK LIST
+    while j <= n:   ##WHILE LOOP TO RUN UNTIL WE ARE FINISHED W PROGRAM
+        Pos=0   
+        for i in range(N): 
+            x = randint(0,2) 
+            if x==0:
+                x=x-1
+            direction[i]=x
+            Pos=Pos + d*direction[i]
+        Pos_list.append(Pos)
+        j=j+1
+    return Pos_list
+
+W=Walk(1000)
+
+#DATA COLLECTION
+x=linspace(-N,N,21)     ##LINSPACE TO GRAPH OUT RESULTS
+x_count=[]
+for i in range(N+1):
+    c=W.count(2*i-20)
+    x_count.append(c)
+
+n=int(N/2 +1)
+x2=[0]*n
+for i in range(n):
+    x2[i]=(2*i)**2
+
+x2_count=[]
+for i in range(N+1):
+    W[i]=W[i]**2
+for j in range(n):
+    c=W.count((2*j)**2)
+    x2_count.append(c)
+print(x2)
+print(x2_count)
+
+#PLOTS
+figure()
+plot(x,x_count)
+title("Walk vs. Frequency of Walk taken")
+xlabel("Distance Walked")
+ylabel("Frequencies of walk")
+show()
+
+figure()
+plt.scatter(x2, x2_count)
+title("Square distribution of the random walk")
+xlabel("Distance walked in squared x")
+ylabel("Frequence of squared x")
+show()
+
+
+#2D Walk (Used Tutoring)
+def Walk2(n):
+    j=0
+    Locx_list=[]        ##INITALISED LISTS
+    Locy_list=[]        ##INITIALISED LISTS
+    dir_x=[0]*N
+    dir_y=[0]*N
+    while j <=n:
+        Locx=0
+        Locy=0
+        for i in range(N):
+            x=randint(0,20)         ##RANDOM INTS FOR THE WALK FUNCTION
+            y=randint(0,20)
+            if x==0:
+                x=x-1
+            if y==0:
+                y=y-1
+            dir_x[i]=x
+            dir_y[i]=y
+            Locx=Locx+d*dir_x[i]        ##DIRECTION UPDATES     
+            Locy=Locy+d*dir_y[i]
+        Locx_list.append(Locx)              ##APPENDAGE OF THE UPDATE TO OUR LIST
+        Locy_list.append(Locy)
+        j=j+1
+    return(Locx_list,Locy_list)
+W_2=Walk2(100)                          ##RUNS OF WALKS
+x=W_2[0]
+y=W_2[1]
+
+                                            ##PLOT IT OUT AND DISPLAY IT
+figure()
+plt.scatter(x,y)
+show()
